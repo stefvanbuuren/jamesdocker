@@ -1,45 +1,24 @@
-FROM opencpu/base as intermediate
+FROM opencpu/base
 
 # install for V8 package
 RUN apt-get update && apt-get install -y libnode-dev
 
-# repo_token.txt should be something like "GITHUB_PAT=624adeaa..."
-# to be able to install packages from private repo's
-COPY repo_token.txt .Renviron
+# Put a copy of our R code into the container
+WORKDIR /usr/local/src
+COPY . /usr/local/src/app
 
-# install R packages needed for JAMES
-RUN \
-    R -e 'install.packages("remotes")' \
-    R -e 'remotes::install_github("stefvanbuuren/clopus")' \
-    R -e 'remotes::install_github("stefvanbuuren/dscore")' \
-    R -e 'remotes::install_github("stefvanbuuren/chartbox")' \
-    R -e 'remotes::install_github("stefvanbuuren/brokenstick")' \
-    R -e 'remotes::install_github("stefvanbuuren/minihealth")' \
-    R -e 'remotes::install_github("stefvanbuuren/jamestest")' \
-    R -e 'remotes::install_github("stefvanbuuren/growthscreener")' \
-    R -e 'remotes::install_github("stefvanbuuren/james")'
+COPY docker/opencpu_config/Renviron .Renviron
 
-# rebuild layer without .Renviron
-FROM opencpu/base
+# Move OpenCPU configuration files into place
+COPY docker/opencpu_config/* /etc/opencpu/
 
-LABEL maintainer="stef.vanbuuren@tno.nl" 
+# Run script to install R dependencies
+RUN /usr/bin/R -f app/docker/installer.R
 
-# re-install for V8 package
-RUN apt-get update && apt-get install -y libnode-dev
-
-# copy R libraries
-COPY --from=intermediate /usr/local/lib/R/site-library /usr/local/lib/R/site-library
-
-# modify preload section
-COPY james.conf /etc/opencpu/server.conf
-
-# restart
-RUN echo "ServerName localhost" | tee /etc/apache2/conf-available/servername.conf
-RUN a2enconf servername
-RUN apachectl restart
+LABEL maintainer="stef.vanbuuren@tno.nl"
 
 # install Arial
 RUN mkdir /usr/share/fonts/truetype/arial/
-COPY fonts/truetype/arial/* /usr/share/fonts/truetype/arial/
+COPY docker/fonts/truetype/arial/* /usr/share/fonts/truetype/arial/
 
 CMD service cron start && apachectl -DFOREGROUND
