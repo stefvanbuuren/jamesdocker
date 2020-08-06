@@ -9,3 +9,7 @@ Encoding: UTF-8
 LazyData: true
 Suggests: 
     testthat
+Depends:
+    james
+Remotes: 
+    stefvanbuuren/james
