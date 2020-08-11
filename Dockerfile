@@ -17,6 +17,10 @@ COPY docker/opencpu_config/Renviron .Renviron
 # install R packages needed for JAMES
 RUN R -e 'install.packages("remotes")'
 
+# Hack to fix error: 'unmove' is not a member of 'cpp11' AUG11
+RUN R -e 'remotes::install_version("cpp11", version = "0.1", repos = "http://cran.us.r-project.org")'
+RUN R -e 'install.packages("tidyverse")'
+
 # private repos
 RUN R -e 'remotes::install_github("stefvanbuuren/clopus")'
 RUN R -e 'remotes::install_github("stefvanbuuren/donorloader")'
