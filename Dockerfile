@@ -40,8 +40,12 @@ RUN R -e 'remotes::install_github("stefvanbuuren/jamesclient")'
 ADD https://api.github.com/repos/stefvanbuuren/growthscreener/commits /dev/null
 RUN R -e 'remotes::install_github("stefvanbuuren/growthscreener")'
 
+RUN R -e 'remotes::install_github("stefvanbuuren/chartplotter")'
+RUN R -e 'remotes::install_github("stefvanbuuren/curvematching")'
+
 ADD https://api.github.com/repos/stefvanbuuren/james/commits /dev/null
 RUN R -e 'remotes::install_github("stefvanbuuren/james")'
+
 
 # Move OpenCPU configuration files into place
 ADD docker/opencpu_config/* /etc/opencpu/
