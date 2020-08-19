@@ -7,3 +7,5 @@ docker exec -i -t ef /bin/bash
 docker stop $(docker ps -a -q)
 
 docker rmi -f $(docker images -q)
+
+docker container prune

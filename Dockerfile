@@ -31,20 +31,21 @@ RUN R -e 'remotes::install_github("stefvanbuuren/chartbox")'
 ADD https://api.github.com/repos/stefvanbuuren/brokenstick/commits /dev/null
 RUN R -e 'remotes::install_github("stefvanbuuren/brokenstick")'
 
-ADD https://api.github.com/repos/stefvanbuuren/minihealth/commits /dev/null
-RUN R -e 'remotes::install_github("stefvanbuuren/minihealth")'
-
 ADD https://api.github.com/repos/stefvanbuuren/jamesclient/commits /dev/null
 RUN R -e 'remotes::install_github("stefvanbuuren/jamesclient")'
+
+RUN R -e 'remotes::install_github("stefvanbuuren/curvematching")'
 
 ADD https://api.github.com/repos/stefvanbuuren/growthscreener/commits /dev/null
 RUN R -e 'remotes::install_github("stefvanbuuren/growthscreener")'
 
-RUN R -e 'remotes::install_github("stefvanbuuren/chartplotter")'
-RUN R -e 'remotes::install_github("stefvanbuuren/curvematching")'
+ADD https://api.github.com/repos/stefvanbuuren/minihealth/commits /dev/null
+RUN R -e 'remotes::install_github("stefvanbuuren/minihealth")'
+
+RUN R -e 'remotes::install_github("stefvanbuuren/chartplotter")'  # 3
 
 ADD https://api.github.com/repos/stefvanbuuren/james/commits /dev/null
-RUN R -e 'remotes::install_github("stefvanbuuren/james")'
+RUN R -e 'remotes::install_github("stefvanbuuren/james@legacy")'  # 3
 
 
 # Move OpenCPU configuration files into place
