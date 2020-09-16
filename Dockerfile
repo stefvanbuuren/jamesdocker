@@ -42,10 +42,10 @@ RUN R -e 'remotes::install_github("stefvanbuuren/growthscreener")'
 ADD https://api.github.com/repos/stefvanbuuren/minihealth/commits /dev/null
 RUN R -e 'remotes::install_github("stefvanbuuren/minihealth")'
 
-RUN R -e 'remotes::install_github("stefvanbuuren/chartplotter")'  # 3
+RUN R -e 'remotes::install_github("stefvanbuuren/chartplotter")'
 
 ADD https://api.github.com/repos/stefvanbuuren/james/commits /dev/null
-RUN R -e 'remotes::install_github("stefvanbuuren/james@legacy")'  # 3
+RUN R -e 'remotes::install_github("stefvanbuuren/james")'
 
 
 # Move OpenCPU configuration files into place
