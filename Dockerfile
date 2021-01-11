@@ -16,20 +16,16 @@ COPY docker/opencpu_config/Renviron .Renviron
 
 # install R packages needed for JAMES
 RUN R -e 'install.packages("remotes")'
+RUN R -e 'install.packages("brokenstick")'
+RUN R -e 'install.packages("dscore")'
 
 # private repos
 RUN R -e 'remotes::install_github("stefvanbuuren/clopus")'
 RUN R -e 'remotes::install_github("stefvanbuuren/donorloader")'
 
 # public repos
-ADD https://api.github.com/repos/stefvanbuuren/dscore/commits /dev/null
-RUN R -e 'remotes::install_github("stefvanbuuren/dscore")'
-
 ADD https://api.github.com/repos/stefvanbuuren/chartbox/commits /dev/null
 RUN R -e 'remotes::install_github("stefvanbuuren/chartbox")'
-
-ADD https://api.github.com/repos/stefvanbuuren/brokenstick/commits /dev/null
-RUN R -e 'remotes::install_github("stefvanbuuren/brokenstick")'
 
 ADD https://api.github.com/repos/stefvanbuuren/jamesclient/commits /dev/null
 RUN R -e 'remotes::install_github("stefvanbuuren/jamesclient")'
