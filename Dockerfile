@@ -25,6 +25,7 @@ RUN R -e 'install.packages("dscore")'
 # private repos
 RUN R -e 'remotes::install_github("stefvanbuuren/clopus")'
 RUN R -e 'remotes::install_github("stefvanbuuren/donorloader")'
+RUN R -e 'remotes::install_github("growthcharts/nlreferences")'
 
 # public repos
 ADD https://api.github.com/repos/stefvanbuuren/chartcatalog/commits /dev/null
@@ -43,9 +44,6 @@ RUN R -e 'remotes::install_github("stefvanbuuren/minihealth")'
 
 ADD https://api.github.com/repos/stefvanbuuren/growthscreener/commits /dev/null
 RUN R -e 'remotes::install_github("stefvanbuuren/growthscreener")'
-
-RUN R -e 'remotes::install_github("growthcharts/centile")'
-RUN R -e 'remotes::install_github("growthcharts/nlreferences")'
 RUN R -e 'remotes::install_github("stefvanbuuren/chartplotter")'
 
 ADD https://api.github.com/repos/stefvanbuuren/james/commits /dev/null
