@@ -19,36 +19,24 @@ COPY docker/opencpu_config/Renviron .Renviron
 
 # install R packages needed for JAMES
 RUN R -e 'install.packages("remotes")'
-RUN R -e 'install.packages("brokenstick")'
-RUN R -e 'install.packages("dscore")'
 
 # private repos
-# RUN R -e 'remotes::install_github("stefvanbuuren/clopus")'
 RUN R -e 'remotes::install_github("stefvanbuuren/donorloader")'
 RUN R -e 'remotes::install_github("growthcharts/nlreferences")'
 
 # public repos
-ADD https://api.github.com/repos/stefvanbuuren/chartcatalog/commits /dev/null
+RUN R -e 'install.packages("dscore")'
+RUN R -e 'remotes::install_github("growthcharts/brokenstick")'
 RUN R -e 'remotes::install_github("stefvanbuuren/chartcatalog")'
-
-ADD https://api.github.com/repos/stefvanbuuren/chartbox/commits /dev/null
 RUN R -e 'remotes::install_github("stefvanbuuren/chartbox")'
-
-ADD https://api.github.com/repos/stefvanbuuren/jamesclient/commits /dev/null
 RUN R -e 'remotes::install_github("stefvanbuuren/jamesclient")'
-
 RUN R -e 'remotes::install_github("stefvanbuuren/curvematching")'
-
-ADD https://api.github.com/repos/stefvanbuuren/minihealth/commits /dev/null
 RUN R -e 'remotes::install_github("stefvanbuuren/minihealth")'
-
-ADD https://api.github.com/repos/stefvanbuuren/growthscreener/commits /dev/null
 RUN R -e 'remotes::install_github("stefvanbuuren/growthscreener")'
 RUN R -e 'remotes::install_github("stefvanbuuren/chartplotter")'
 
 ADD https://api.github.com/repos/stefvanbuuren/james/commits /dev/null
-RUN R -e 'remotes::install_github("stefvanbuuren/james")'   # 1
-
+RUN R -e 'remotes::install_github("stefvanbuuren/james")'
 
 # Move OpenCPU configuration files into place
 ADD docker/opencpu_config/* /etc/opencpu/
