@@ -35,10 +35,10 @@ RUN R -e 'remotes::install_github("growthcharts/bdsreader")'
 RUN R -e 'remotes::install_github("stefvanbuuren/jamesclient@bdsreader")'
 RUN R -e 'remotes::install_github("stefvanbuuren/curvematching@bdsreader")'
 RUN R -e 'remotes::install_github("stefvanbuuren/growthscreener@bdsreader")'
-RUN R -e 'remotes::install_github("stefvanbuuren/chartplotter")'  ## 1
+RUN R -e 'remotes::install_github("stefvanbuuren/chartplotter")'
 
 ADD https://api.github.com/repos/stefvanbuuren/james/commits /dev/null
-RUN R -e 'remotes::install_github("stefvanbuuren/james@bdsreader")'  ## 3
+RUN R -e 'remotes::install_github("stefvanbuuren/james@bdsreader")'
 
 # Move OpenCPU configuration files into place
 ADD docker/opencpu_config/* /etc/opencpu/
