@@ -9,3 +9,6 @@ docker stop $(docker ps -a -q)
 docker rmi -f $(docker images -q)
 
 docker container prune
+
+# remove everything
+docker system prune

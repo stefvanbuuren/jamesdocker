@@ -1,3 +1,4 @@
+# docker JAMES - BDS version
 FROM opencpu/base
 
 LABEL maintainer="stef.vanbuuren@tno.nl"
@@ -29,14 +30,15 @@ RUN R -e 'install.packages("dscore")'
 RUN R -e 'remotes::install_github("growthcharts/brokenstick")'
 RUN R -e 'remotes::install_github("stefvanbuuren/chartcatalog")'
 RUN R -e 'remotes::install_github("stefvanbuuren/chartbox")'
-RUN R -e 'remotes::install_github("stefvanbuuren/jamesclient")'
-RUN R -e 'remotes::install_github("stefvanbuuren/curvematching")'
-RUN R -e 'remotes::install_github("stefvanbuuren/minihealth")'
-RUN R -e 'remotes::install_github("stefvanbuuren/growthscreener")'
-RUN R -e 'remotes::install_github("stefvanbuuren/chartplotter")'
+RUN R -e 'remotes::install_github("growthcharts/jamesdemodata")'
+RUN R -e 'remotes::install_github("growthcharts/bdsreader")'
+RUN R -e 'remotes::install_github("stefvanbuuren/jamesclient@bdsreader")'
+RUN R -e 'remotes::install_github("stefvanbuuren/curvematching@bdsreader")'
+RUN R -e 'remotes::install_github("stefvanbuuren/growthscreener@bdsreader")'
+RUN R -e 'remotes::install_github("stefvanbuuren/chartplotter")'  ## 1
 
 ADD https://api.github.com/repos/stefvanbuuren/james/commits /dev/null
-RUN R -e 'remotes::install_github("stefvanbuuren/james")'
+RUN R -e 'remotes::install_github("stefvanbuuren/james@bdsreader")'  ## 3
 
 # Move OpenCPU configuration files into place
 ADD docker/opencpu_config/* /etc/opencpu/
