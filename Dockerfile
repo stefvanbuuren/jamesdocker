@@ -23,6 +23,7 @@ RUN R -e 'install.packages("remotes")'
 
 # private repos
 RUN R -e 'remotes::install_github("stefvanbuuren/donorloader")'
+RUN R -e 'remotes::install_github("growthcharts/curvematching")'
 
 # public repos
 RUN R -e 'install.packages("dscore")'
@@ -33,8 +34,7 @@ RUN R -e 'remotes::install_github("growthcharts/chartbox")'
 RUN R -e 'remotes::install_github("growthcharts/jamesdemodata")'
 RUN R -e 'remotes::install_github("growthcharts/bdsreader")'
 RUN R -e 'remotes::install_github("growthcharts/jamesclient")'
-RUN R -e 'remotes::install_github("growthcharts/curvematching")'
-RUN R -e 'remotes::install_github("stefvanbuuren/growthscreener@bdsreader")'
+RUN R -e 'remotes::install_github("growthcharts/growthscreener")'
 RUN R -e 'remotes::install_github("stefvanbuuren/chartplotter")'
 
 ADD https://api.github.com/repos/stefvanbuuren/james/commits /dev/null
