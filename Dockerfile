@@ -35,7 +35,7 @@ RUN R -e 'remotes::install_github("growthcharts/jamesdemodata")'
 RUN R -e 'remotes::install_github("growthcharts/bdsreader")'
 RUN R -e 'remotes::install_github("growthcharts/jamesclient")'
 RUN R -e 'remotes::install_github("growthcharts/growthscreener")'
-RUN R -e 'remotes::install_github("stefvanbuuren/chartplotter")'
+RUN R -e 'remotes::install_github("growthcharts/chartplotter")'
 
 ADD https://api.github.com/repos/stefvanbuuren/james/commits /dev/null
 RUN R -e 'remotes::install_github("stefvanbuuren/james@bdsreader")'
