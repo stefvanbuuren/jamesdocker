@@ -38,7 +38,7 @@ RUN R -e 'remotes::install_github("growthcharts/growthscreener")'
 RUN R -e 'remotes::install_github("growthcharts/chartplotter")'
 
 ADD https://api.github.com/repos/stefvanbuuren/james/commits /dev/null
-RUN R -e 'remotes::install_github("stefvanbuuren/james@bdsreader")'
+RUN R -e 'remotes::install_github("growthcharts/james")'
 
 # Move OpenCPU configuration files into place
 ADD docker/opencpu_config/* /etc/opencpu/
