@@ -22,7 +22,7 @@ COPY docker/opencpu_config/Renviron .Renviron
 RUN R -e 'install.packages("remotes")'
 
 # private repos
-RUN R -e 'remotes::install_github("stefvanbuuren/donorloader")'
+RUN R -e 'remotes::install_github("growthcharts/donorloader")'
 RUN R -e 'remotes::install_github("growthcharts/curvematching")'
 
 # public repos
