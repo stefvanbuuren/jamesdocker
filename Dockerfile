@@ -31,14 +31,16 @@ RUN R -e 'remotes::install_github("growthcharts/jamesdemodata")'
 RUN R -e 'remotes::install_github("growthcharts/bdsreader")'
 RUN R -e 'remotes::install_github("growthcharts/jamesclient")'
 RUN R -e 'remotes::install_github("growthcharts/growthscreener")'
-RUN R -e 'remotes::install_github("growthcharts/chartplotter")'
+RUN R -e 'remotes::install_github("growthcharts/chartplotter")'  # 1
 RUN R -e 'remotes::install_github("growthcharts/james")'
 
 # Prevent: "namespace 'vctrs' 0.3.6 is already loaded, but >= 0.3.8 is required"
 # Remove symlink in "/usr/lib/opencpu/library" solves this:
 RUN R -e 'remove.packages("vctrs", "/usr/lib/opencpu/library")'
+RUN R -e 'remove.packages("pillar", "/usr/lib/opencpu/library")'
+RUN R -e 'remove.packages("ellipsis", "/usr/lib/opencpu/library")'
 
-# Move OpenCPU configuration files into place 1
+# Move OpenCPU configuration files into place - opt 3
 ADD docker/opencpu_config/* /etc/opencpu/
 
 CMD service cron start && apachectl -DFOREGROUND
