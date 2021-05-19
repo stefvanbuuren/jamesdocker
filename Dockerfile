@@ -19,16 +19,10 @@ RUN apt -y install libfontconfig1-dev
 COPY docker/opencpu_config/Renviron .Renviron
 
 # install R packages needed for JAMES
-RUN R -e 'install.packages("vctrs")'  # needs minimal 0.3.8
-RUN R -e 'install.packages("tidyverse")'
 RUN R -e 'install.packages("remotes")'
-
-# private repos
-RUN R -e 'remotes::install_github("growthcharts/donorloader")'  # 1
-RUN R -e 'remotes::install_github("growthcharts/curvematching")'
-
-# public repos
 RUN R -e 'install.packages("dscore")'
+RUN R -e 'remotes::install_github("growthcharts/donorloader")'
+RUN R -e 'remotes::install_github("growthcharts/curvematching")'
 RUN R -e 'remotes::install_github("growthcharts/nlreferences")'
 RUN R -e 'remotes::install_github("growthcharts/brokenstick")'
 RUN R -e 'remotes::install_github("growthcharts/chartcatalog")'
@@ -38,15 +32,13 @@ RUN R -e 'remotes::install_github("growthcharts/bdsreader")'
 RUN R -e 'remotes::install_github("growthcharts/jamesclient")'
 RUN R -e 'remotes::install_github("growthcharts/growthscreener")'
 RUN R -e 'remotes::install_github("growthcharts/chartplotter")'
-
-ADD https://api.github.com/repos/stefvanbuuren/james/commits /dev/null
 RUN R -e 'remotes::install_github("growthcharts/james")'
 
 # Prevent: "namespace 'vctrs' 0.3.6 is already loaded, but >= 0.3.8 is required"
 # Remove symlink in "/usr/lib/opencpu/library" solves this:
 RUN R -e 'remove.packages("vctrs", "/usr/lib/opencpu/library")'
 
-# Move OpenCPU configuration files into place
+# Move OpenCPU configuration files into place 1
 ADD docker/opencpu_config/* /etc/opencpu/
 
 CMD service cron start && apachectl -DFOREGROUND
