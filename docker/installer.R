@@ -3,4 +3,4 @@ install.packages(c('remotes'),
                  dependencies = c("Depends", "Imports", "LinkingTo"))
 pat <- Sys.getenv("GITHUB_PAT")
 pat
-remotes::install_github("stefvanbuuren/james")
+remotes::install_github("growthcharts/james")

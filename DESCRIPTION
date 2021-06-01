@@ -1,15 +1,8 @@
 Package: jamesdocker
 Title: JAMES Docker API
-Version: 0.1.0
+Version: 0.2.0
 Author: person("Stef", "van Buuren", email = "stef.vanbuuren@tno.nl", role = c("aut", "cre"))
 Maintainer: Stef van Buuren <stef.vanbuuren@tno.nl>
-Description: API for JAMES.
+Description: Building the JAMES docker image.
 License: AGPL-3
 Encoding: UTF-8
-LazyData: true
-Suggests: 
-    testthat
-Depends:
-    james
-Remotes: 
-    stefvanbuuren/james
