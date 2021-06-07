@@ -43,4 +43,7 @@ RUN R -e 'remove.packages("ellipsis", "/usr/lib/opencpu/library")'
 # Move OpenCPU configuration files into place - opt 3
 ADD docker/opencpu_config/* /etc/opencpu/
 
+# Replace default apache2.conf containing rewrites
+COPY docker/opencpu_config/apache2.conf /etc/apache2/
+
 CMD service cron start && apachectl -DFOREGROUND
