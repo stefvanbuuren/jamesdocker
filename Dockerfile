@@ -19,19 +19,7 @@ RUN apt -y install libfontconfig1-dev
 COPY docker/opencpu_config/Renviron .Renviron
 
 # install R packages needed for JAMES
-RUN R -e 'install.packages("remotes")' # 1
-RUN R -e 'install.packages("dscore")'
-RUN R -e 'remotes::install_github("growthcharts/donorloader")'
-RUN R -e 'remotes::install_github("growthcharts/curvematching")'
-RUN R -e 'remotes::install_github("growthcharts/nlreferences")'
-RUN R -e 'remotes::install_github("growthcharts/brokenstick")'
-RUN R -e 'remotes::install_github("growthcharts/chartcatalog")'
-RUN R -e 'remotes::install_github("growthcharts/chartbox")'
-RUN R -e 'remotes::install_github("growthcharts/jamesdemodata")'
-RUN R -e 'remotes::install_github("growthcharts/bdsreader")'
-RUN R -e 'remotes::install_github("growthcharts/jamesclient")'
-RUN R -e 'remotes::install_github("growthcharts/growthscreener")'
-RUN R -e 'remotes::install_github("growthcharts/chartplotter")'  # 1
+RUN R -e 'install.packages("remotes")'
 RUN R -e 'remotes::install_github("growthcharts/james")'
 
 # Move OpenCPU configuration files into place - opt 3
