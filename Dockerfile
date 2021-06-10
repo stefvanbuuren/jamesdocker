@@ -24,5 +24,8 @@ RUN R -e 'install.packages("remotes")' && \
 
 # Move OpenCPU configuration files into place - opt 3
 COPY docker/opencpu_config/server.conf /etc/opencpu/
+# Enable rewrite, then move apache2 config file into place
+RUN a2enmod rewrite
+ADD docker/apache2.conf /etc/apache2/
 
 CMD service cron start && apachectl -DFOREGROUND
