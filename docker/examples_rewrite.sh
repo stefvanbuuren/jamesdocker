@@ -3,7 +3,10 @@
 # GET: download example data
 curl https://groeidiagrammen.nl/ocpu/library/james/testdata/client3.json -O
 
-# POST: upload dataset from local file
+# POST: upload local file to groeidiagrammen.nl (oldstyle)
+curl -X POST -F 'txt=@client3.json' https://groeidiagrammen.nl/ocpu/library/james/R/fetch_loc
+
+# POST: upload local file client3.json to localhost
 curl -X POST -F 'txt=@client3.json' localhost/key
 
 # POST: upload dataset as a JSON string (assumes jq utility installed)
@@ -11,8 +14,9 @@ dat=$(jq '.' client3.json | jq -sR '.')
 curl localhost/key -d "txt=$dat"
 
 # store key to my data on the server
-key=x0df5a91ec5d8b4
+key=x039782e37a6024
 echo $key
+
 
 
 # --> How can I inspect my uploaded data?
@@ -57,12 +61,35 @@ curl localhost://charts/draw/print -d "chartcode='NMBB'&selector='chartcode'"
 
 # POST: ask for empty chart with code NMBA (external)
 # FAILS
-curl -X POST localhost://charts/NMBA
+# curl -X POST localhost://charts/NMBA
 
 # GET: R documentation draw_chart (external)
 curl localhost://charts/draw/man
 
 
 # --> How do we add data to a chart?
-curl localhost://$key/charts/NMBA/svg
+
+# POST: upload local child data and plot on NMBB (chartcode) (external)
+curl localhost://charts/draw -d "txt=$dat&chartcode='NMBB'&selector='chartcode'"
+
+# POST: read child data from storage and plot on NMBB (chartcode) (faster for multiple graphs) (external)
+curl localhost://charts/draw -d "loc='http://localhost/ocpu/tmp/$key/'&chartcode='NMBB'&selector='chartcode'"
+
+# POST: read child data from storage and plot on NMBB
+# the nicer way, but it does not work
+# curl localhost://$key/charts/NMBB
+
+# POST: read child data from storage and plot on NMBB
+# slightly simplified, but also does not work
+# curl localhost://$key/charts/draw -d "chartcode='NMBB'&selector='chartcode'"
+
+
+# ---> How do we download the chart?
+
+# download chart, the short path
+cht=x0cc40eb12bfda1
+curl -o mychart1.svg "localhost/$cht/svg?width=8.27&height=11.69" -H 'Cache-Control: max-age=0'
+
+# download chart, the long path (oldstyle)
+curl -o mychart2.svg "localhost/ocpu/tmp/$cht/graphics/1/svglite?width=8.27&height=11.69" -H 'Cache-Control: max-age=0'
 
