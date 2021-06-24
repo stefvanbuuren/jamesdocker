@@ -17,12 +17,19 @@ RUN apt-get update && \
 COPY docker/fonts/truetype/arial/* /usr/share/fonts/truetype/arial/
 COPY docker/opencpu_config/Renviron .Renviron
 
-# install R packages needed for JAMES
+# install R packages needed for JAMES # 1
 RUN R -e 'install.packages("remotes")' && \
     R -e 'remotes::install_github("growthcharts/james")' && \
     rm .Renviron
 
 # Move OpenCPU configuration files into place - opt 3
 COPY docker/opencpu_config/server.conf /etc/opencpu/
+
+# Enable rewrite, then move apache2 config file into place - 19
+RUN a2enmod rewrite
+ADD docker/opencpu_config/apache2.conf /etc/apache2/
+
+# Replace default apache2.conf containing rewrites
+COPY docker/opencpu_config/apache2.conf /etc/apache2/
 
 CMD service cron start && apachectl -DFOREGROUND
