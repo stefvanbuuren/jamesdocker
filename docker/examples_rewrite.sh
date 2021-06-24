@@ -14,7 +14,7 @@ dat=$(jq '.' client3.json | jq -sR '.')
 curl localhost/key -d "txt=$dat"
 
 # store key to my data on the server
-key=x039782e37a6024
+key=x0cd14ee778d0fb
 echo $key
 
 
@@ -36,6 +36,7 @@ curl localhost/$key/messages
 # we can ask: print, json, svg, console, stdout, warnings, messages, info, source, R, files
 
 
+
 # --> Which charts can we make?
 
 # POST: opencpu session (internal)
@@ -51,45 +52,57 @@ curl -X POST localhost://charts/list/print
 curl localhost://charts/list/man
 
 
+
 # --> How do we select a specific chart?
 
-# POST: opencpu session (internal)
+# POST: draw empty chart NMBA
 curl localhost://charts/draw -d "chartcode='NMBA'&selector='chartcode'"
 
-# POST: name of empty chart (chartcode) (external)
-curl localhost://charts/draw/print -d "chartcode='NMBB'&selector='chartcode'"
+# POST: check whether chartcode of output is correct: gtree[NMBA]
+curl localhost://charts/draw/print -d "chartcode='NMBA'&selector='chartcode'"
 
-# POST: ask for empty chart with code NMBA (external)
+# POST: ask for empty chart with code NMBA with neat URL
 # FAILS
+# Using: RewriteRule ^/charts/([A-Za-z0-9]+)((\/$|$))  /ocpu/library/james/R/draw_chart?chartcode=$1&selector=chartcode [R,PT,QSA]
+# It might not be possible without additional javascript
+# https://stackoverflow.com/questions/8581054/how-do-i-rewrite-a-post-request-from-a-form-to-a-user-friendly-url-with-htaccess
 # curl -X POST localhost://charts/NMBA
 
 # GET: R documentation draw_chart (external)
 curl localhost://charts/draw/man
 
 
+
 # --> How do we add data to a chart?
 
-# POST: upload local child data and plot on NMBB (chartcode) (external)
-curl localhost://charts/draw -d "txt=$dat&chartcode='NMBB'&selector='chartcode'"
+# POST: upload local child data and plot on NMBA (chartcode) (external)
+curl localhost://charts/draw -d "txt=$dat&chartcode='NMBA'&selector='chartcode'"
 
-# POST: read child data from storage and plot on NMBB (chartcode) (faster for multiple graphs) (external)
-curl localhost://charts/draw -d "loc='http://localhost/ocpu/tmp/$key/'&chartcode='NMBB'&selector='chartcode'"
+# POST: read child data from storage and plot on NMBA (chartcode) (faster for multiple graphs) (external)
+curl localhost://charts/draw -d "loc='http://localhost/ocpu/tmp/$key/'&chartcode='NMBA'&selector='chartcode'"
 
-# POST: read child data from storage and plot on NMBB
+# POST: read child data from storage and plot on NMBA - neat URL
 # the nicer way, but it does not work
-# curl localhost://$key/charts/NMBB
+# probably same cause because OpenCPU still has to create resource
+# curl -X POST localhost://$key/charts/NMBA
 
-# POST: read child data from storage and plot on NMBB
+# POST: read child data rom storage and plot on NMBA
 # slightly simplified, but also does not work
-# curl localhost://$key/charts/draw -d "chartcode='NMBB'&selector='chartcode'"
+# curl -X POST localhost://$key/charts/draw -d "chartcode='NMBA'&selector='chartcode'"
 
 
-# ---> How do we download the chart?
+
+# ---> How do I download the chart?
 
 # download chart, the short path
-cht=x0cc40eb12bfda1
+cht=x06c34f2abc8170
 curl -o mychart1.svg "localhost/$cht/svg?width=8.27&height=11.69" -H 'Cache-Control: max-age=0'
 
 # download chart, the long path (oldstyle)
 curl -o mychart2.svg "localhost/ocpu/tmp/$cht/graphics/1/svglite?width=8.27&height=11.69" -H 'Cache-Control: max-age=0'
+
+
+
+## ---> How do I obtain a personalised site?
+
 
