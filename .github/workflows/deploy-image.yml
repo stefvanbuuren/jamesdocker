@@ -44,7 +44,7 @@ jobs:
         with:
           context: .
           push: true
-          tags: ${{ steps.meta.outputs.tags }}
+          tags: growthcharts/james:latest
           labels: ${{ steps.meta.outputs.labels }}
-          secrets:
+          secrets: |
              GIT_AUTH_TOKEN: ${{ secrets.BUILD_CONTAINER }}
