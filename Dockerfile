@@ -15,12 +15,10 @@ RUN apt-get update && \
 # WORKDIR /usr/local/src
 # COPY . /usr/local/src/app
 COPY docker/fonts/truetype/arial/* /usr/share/fonts/truetype/arial/
-COPY docker/opencpu_config/Renviron .Renviron
 
 # install R packages needed for JAMES # 1
 RUN R -e 'install.packages("remotes")' && \
-    R -e 'remotes::install_github("growthcharts/james")' && \
-    rm .Renviron
+    R -e 'remotes::install_github("growthcharts/james")'
 
 # Move OpenCPU configuration files into place - opt 3
 COPY docker/opencpu_config/server.conf /etc/opencpu/
