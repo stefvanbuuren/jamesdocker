@@ -47,4 +47,4 @@ jobs:
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
         env:
-          GITHUB_PAT: ${{ secrets.REPO_ONLY_TOKEN }}
+          GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
