@@ -1,6 +1,8 @@
 docker build -t james .
+docker build -t recap .
 
 docker run -d -t -p 80:80 james
+docker run -d -t -p 80:80 recap
 
 docker exec -i -t ef /bin/bash
 
