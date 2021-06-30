@@ -12,3 +12,9 @@ docker container prune
 
 # remove everything
 docker system prune
+
+# check uploaded image
+docker --version
+docker pull stefvanbuuren/james/latest
+docker images
+docker run -d -t -p 80:80 stefvanbuuren/james
